@@ -1,0 +1,50 @@
+package com.AshimCS.razorpay.payment.entity;
+
+import jakarta.persistence.*;
+import lombok.Builder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.UUID;
+
+public class OrderRecord {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    // no FK — cross-service boundary
+    @Column(name = "merchant_id", nullable = false)
+    private UUID merchantId;
+
+    @Column(name = "customer_id")
+    private UUID customerId;
+
+    @Embedded
+    private Money amount;
+
+    @Column(length = 100)
+    private String receipt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private OrderStatus orderStatus = OrderStatus.CREATED;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer attempts = 0;
+
+    @JdbcTypeCode((SqlTypes.JSON))
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> notes;
+
+    @Column(nullable = false)
+    private LocalDateTime expiresAt;
+}
+
+
+
+}
