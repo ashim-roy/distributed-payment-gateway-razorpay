@@ -1,9 +1,22 @@
 package com.AshimCS.razorpay.common.entity;
 
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Embeddable
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Money {
-    private int amountUnits;
+    private int amountUnits; // cent or paisa. For example, 1000 INR = 10.00 INR. So, amountUnits = 1000
     private String currency;
 
+    // static factory method. It is simply a method that creates and returns a Money object.
+    // Money money = Money.of(1000, "INR");
     public static Money of(int amountUnits, String currency) {
         return new Money(amountUnits, currency);
     }
