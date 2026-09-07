@@ -1,6 +1,7 @@
 package com.AshimCS.razorpay.merchant.entity;
 
 import com.AshimCS.razorpay.common.enums.UserRole;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,32 +23,32 @@ public class AppUser {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "merchant_id")
-    private Merchant merchant;
+    private Merchant merchant; // many app users with diff role belong to one Marchant
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
-    private String passwordHash;
+    private String passwordHash; // encrypt the PW first using BCryptPasswordEncoder then store it in the DB. Never store plain text PW in DB
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(
-                new SimpleGrantedAuthority("ROLE_"+role)
-        );
-    }
-
-    @Override
-    public @Nullable String getPassword() {
-        return passwordHash;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(
+//                new SimpleGrantedAuthority("ROLE_"+role)
+//        );
+//    }
+//
+//    @Override
+//    public @Nullable String getPassword() {
+//        return passwordHash;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return email;
+//    }
 }

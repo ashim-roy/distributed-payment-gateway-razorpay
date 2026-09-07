@@ -1,5 +1,7 @@
 package com.AshimCS.razorpay.payment.entity;
 
+import com.AshimCS.razorpay.common.enums.PaymentActor;
+import com.AshimCS.razorpay.common.enums.PaymentEvent;
 import com.AshimCS.razorpay.common.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,4 +46,4 @@ public class PaymentTransitionLog {
     @Column(name = "occurred_at", nullable = false)
     private LocalDateTime occurredAt;
 }
-}
+
