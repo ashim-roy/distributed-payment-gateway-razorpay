@@ -17,3 +17,4 @@ public class SettlementPaymentId {
 
     private UUID paymentId;
 }
+
