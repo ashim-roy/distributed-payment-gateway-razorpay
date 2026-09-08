@@ -2,6 +2,7 @@ package com.AshimCS.razorpay.merchant.service.impl;
 
 import com.AshimCS.razorpay.common.enums.MerchantStatus;
 import com.AshimCS.razorpay.common.enums.UserRole;
+import com.AshimCS.razorpay.common.exception.DuplicateResourceException;
 import com.AshimCS.razorpay.merchant.dto.request.MerchantSignupRequest;
 import com.AshimCS.razorpay.merchant.dto.response.MerchantResponse;
 import com.AshimCS.razorpay.merchant.entity.AppUser;
@@ -12,6 +13,7 @@ import com.AshimCS.razorpay.merchant.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +24,14 @@ public class AuthServiceImpl implements AuthService {
     private final AppUserRepository appUserRepository;
     private final MerchantRepository merchantRepository;
 
+    @Transactional
     @Override
     public MerchantResponse signup(MerchantSignupRequest request) {
 
         // Check if the user already exists
         if(merchantRepository.existsByEmail(request.email())){
-            throw new RuntimeException("Merchant with Email already exists:" + request.email());
+            throw new DuplicateResourceException("DUPLICATE_MERCHANT_EMAIL",
+                    "Merchant with Email already exists:" + request.email());  // ex.getErrorCode(), ex.getMessage()));
         }
 
         // business logic to create a new merchant and save it to the database

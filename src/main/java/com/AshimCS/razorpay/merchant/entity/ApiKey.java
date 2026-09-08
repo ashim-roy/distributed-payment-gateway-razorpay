@@ -19,7 +19,6 @@ import java.util.UUID;
 @Builder
 public class ApiKey {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
