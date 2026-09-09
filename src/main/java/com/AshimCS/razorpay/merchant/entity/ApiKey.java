@@ -34,7 +34,7 @@ public class ApiKey {
     private String keySecretHash;
 
     @Column(length = 200)
-    private String previousKeySecretHash;
+    private String previousKeySecretHash; // / here previous key would be NULL until they don’t generate a new. So we don’t add nullable = false for prev key
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
