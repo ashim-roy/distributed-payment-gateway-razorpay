@@ -46,4 +46,17 @@ public class ApiKeyController {
        // return ResponseEntity.ok(apiKeyService.listByMerchant(merchantContext.getMerchantId()));
     }
 
+    // This would help merchant to revoke any APIKEY
+//    @DeleteMapping("/keyId")
+//    public ResponseEntity<Void> revoke(@PathVariable UUID keyId) {
+//        apiKeyService.revoke(merchantContext.getMerchantId(), keyId);
+//        return ResponseEntity.noContent().build();
+//    }
+
+    @DeleteMapping("/keyId")
+    public ResponseEntity<Void> revoke(@PathVariable UUID merchantId, @PathVariable UUID keyId) {
+        apiKeyService.revoke(merchantId, keyId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
